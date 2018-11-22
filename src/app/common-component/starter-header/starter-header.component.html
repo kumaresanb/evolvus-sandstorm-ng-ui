@@ -1,0 +1,75 @@
+<header class="main-header">
+
+  <!-- Logo -->
+  <a ui-sref="#" class="logo">
+    <span class="logo-mini" style="font-size: 10px;">
+      Console</span>   
+    <span class="logo-lg">
+      <h5 style="margin-top: 2em;">Sandstorm - Console</h5>
+    </span>
+    <span id="nav-icon1" class="open" data-toggle="offcanvas" role="button">
+    </span>
+  </a>
+  
+  
+
+  <nav class="navbar navbar-static-top" role="navigation">
+    <a (click)="sideBarmenu()" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <span class="sr-only">Toggle navigation</span>
+    </a>
+
+
+    <div class="nav navbar-nav navbar-center">
+      <span class="txt-blue">Sandstorm - Console</span>
+      <!--   <p class="text-center" style="font-size:14px;">Console</p>	 -->
+    </div>
+
+         <div class="btn-group">  
+            <i class="fa fa-bookmark  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Console Apps   
+            </i>    
+            <ul class="dropdown-menu">  
+              <li *ngFor="let application of listOfApplications"><a (click)="navToApp(application)">{{application?.applicationName}}</a></li>
+            </ul>
+          </div>     
+
+
+    <!-- Navbar Right Menu -->
+    <div class="navbar-custom-menu"> 
+      
+      <ul class="nav navbar-nav paddR25">
+
+         
+        <li class="dropdown user user-menu">
+          <a id="drop1" class="dropdown-toggle userfluxlogin" role="button">
+            <img src="assets/images/user-icon.png" height="30" width="30">
+          </a>
+          <ul role="menu" class="dropdown-menu dropdown-menu-animated" aria-labelledby="drop1">
+            <li>
+              <div class="navbar-login">
+                <div class="row">
+                  <div class="col-md-8 col-lg-8">
+                    <p class="text-left medium txt-orange">
+                      <i class="evo-user"></i> {{user?.userId}}</p>
+                    <p class="text-left small">{{user?.role?.roleName}}</p>
+                  </div>  
+                </div> 
+                <hr style="margin-top:6px;">
+                <div class="row logoutBtn">
+                  <div class="col-md-12 text-center">
+                    <button type="button" class="btn btn-orange" (click)="logout()">Logout</button>
+                  </div>
+                </div>
+              </div>
+            </li> 
+          </ul>
+        </li>
+
+      </ul>
+  
+
+    </div>
+
+  </nav>
+</header>
+

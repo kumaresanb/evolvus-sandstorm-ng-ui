@@ -1,0 +1,126 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper viewFormSec">
+  <!-- Content Header (Page header) -->
+  <section class="padL35 content-header ">
+    <h1 class="marTB15 txt-orange">
+      <div class="img_icon">
+        <span>
+          <i class="fa fa-angle-left" mat-raised-button matTooltip="Back" [routerLink]="['/entityManagement']" aria-hidden="true"></i> View Entity Details</span>
+      </div>
+    </h1>
+  </section>
+
+
+  <section class="content">
+    <form>
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Entity Information</h4>
+          <hr>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Entity Name</h5>
+            <label>{{selectedEntity?.name}}</label>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Entity Code</h5>
+            <label>{{selectedEntity?.entityCode}}</label>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Parent Entity</h5>
+            <label>{{selectedEntity?.parent}}</label>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Access Level</h5>
+            <label>{{selectedEntity?.accessLevel}}</label>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Activation Status</h5>
+            <label>{{selectedEntity?.activationStatus}}</label>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Processing Status</h5>
+            <label>{{selectedEntity?.processingStatus}}</label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group description">
+            <h5>Description</h5>
+            <label id="description">{{selectedEntity?.description}}</label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Created By</h5>
+            <label>{{selectedEntity?.createdBy}}</label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Created Data & Time</h5>
+            <label>{{selectedEntity?.createdDate | date: 'medium'}}</label>
+          </div>
+        </div>
+      </div>
+
+      <br>
+
+      <div *ngIf="showWorkFlow">
+          <div class="work-flow-view">
+            <mat-tab-group>
+              <mat-tab label="Work Flow - History">
+  
+              </mat-tab>
+  
+            </mat-tab-group>
+          </div>
+          <div class="work-flow">
+            <app-evolvus-workflow-view [eventList]="listOfEvents"></app-evolvus-workflow-view>
+          </div>
+          <div class="no-event-data" *ngIf="listOfEvents.length==0">
+            <h6>No Data Found!</h6>
+          </div>
+        </div>
+
+      <br>
+
+      <div class="text-center">
+        <div class="col-sm-12">
+
+          <button *ngIf="doIExist('Approve') && selectedEntity?.processingStatus == 'PENDING_AUTHORIZATION'" type="button" class="btn btn-default btn-approve" (click)="takeAction('APPROVE')"> Approve</button>
+          <button *ngIf="doIExist('Reprocess') && selectedEntity?.processingStatus == 'PENDING_AUTHORIZATION'" type="button" class="btn btn-default btn-submit" (click)="takeAction('REPROCESS')">
+            Reprocess</button>
+          <button *ngIf="doIExist('Reject') && selectedEntity?.processingStatus == 'PENDING_AUTHORIZATION'" type="button" class="btn btn-default btn-reject" (click)="takeAction('REJECT')"> Reject</button>
+    
+        <button type="button" class="btn btn-default btn-submit" *ngIf="(doIExist('Modify') && ((selectedEntity?.processingStatus == 'AUTHORIZED') || (selectedEntity?.processingStatus == 'REPROCESS')))" (click)="updateEntity()" [disabled]="isStatusPending">
+          <span>Modify</span>
+        </button>
+        <button type="button" class="btn btn-default btn-submit" (click)="getWorkFlowData()">  
+          <span *ngIf="!showWorkFlow">Show WorkFlow</span>
+          <span *ngIf="showWorkFlow">Hide WorkFlow</span>
+        </button>
+        <button type="button" class="btn btn-default btn-close" (click)="abortViewAction()"> Cancel</button>
+  
+      </div>
+      </div>
+    </form>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

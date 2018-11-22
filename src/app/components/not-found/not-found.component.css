@@ -1,0 +1,27 @@
+.not-found{
+    margin-top: 13em;    
+}
+.errorName{
+font-size: 40px;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.errorDescription1{
+    font-size: 15px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    .errorDescription2{
+        font-size: 15px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+ 
+mat-progress-spinner{
+z-index: -5;  
+margin-top: 1em; 
+}
+.main-title{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 2em;      
+}
+ 

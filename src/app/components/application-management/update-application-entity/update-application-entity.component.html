@@ -1,0 +1,120 @@
+<div class="content-wrapper">
+<div class="update-application" id="update-application" style="transition: 0.8s;">
+
+
+  
+
+      
+
+      <section class="padL35 content-header">
+          <h1 class="marTB15 txt-orange">
+              <div class="img_icon">
+<span><i class="fa fa-angle-left"  mat-raised-button matTooltip="Back" (click)="abortUpdateAction()" aria-hidden="true"></i> Update Application Details</span>
+          </div>
+          </h1>
+        </section>
+
+        <section class="content">
+            <div class="row">
+              <div class="col-md-3">
+                  <h4 class="txt-blue">Application Information</h4>
+               <hr>
+                </div>
+              </div>
+
+       
+
+              <form  [formGroup]="applicationForm">
+                <div class="row">
+          
+                  <div class="col-lg-5">
+                    <div class="form-group">
+                       <mat-form-field class="example-full-width">
+                           <input  required autocomplete="off" readonly matInput name="applicationCode" formControlName="applicationCode"   id="applicationCode" placeholder="Application Code">
+                         </mat-form-field>
+                       </div>
+                  </div>
+                   
+                  
+                  <div class="col-lg-5">
+                    <div class="form-group">
+                       <mat-form-field class="example-full-width">
+                           <input  required autocomplete="off" matInput name="applicationName" formControlName="applicationName" id="applicationName" placeholder="Application Name">
+                           <label class="btn btn-info"  mat-raised-button matTooltip="1 - 100 characters &#10004;"><i class="fa fa-question-circle" ></i></label>
+          
+                         </mat-form-field>
+                       </div>
+                  </div>
+          
+          <br>
+          <div class="col-lg-5">
+            <div class="form-group">
+               <mat-form-field class="example-full-width">
+                   <input   autocomplete="off" matInput name="applicationDescription" formControlName="description"  id="applicationDescription" placeholder="Application Description">
+                   <label class="btn btn-info"  mat-raised-button matTooltip="A Description with a Max of 255 characters! &#10004;"><i class="fa fa-question-circle" ></i></label>
+                 </mat-form-field>
+               </div>
+          </div>
+              
+          <div class="col-lg-5" >
+            <div class="form-group">
+               <mat-form-field [color]="'primary'" class="example-full-width " >
+                   <mat-select   placeholder="Application Status"  formControlName="enableFlag" name="enableFlag" id="enableFlag"> 
+                     <mat-option value="1">Enabled</mat-option>
+                     <mat-option value="0">Disabled</mat-option>
+                   </mat-select>
+                 </mat-form-field>
+               </div>
+          </div>
+              
+                </div>
+          
+          
+                <div class="row">
+                 
+                  <div class="col-lg-5 logo-image">
+                    <div class="form-group">
+                        <label for="description">Application Logo : </label>
+                    <br>
+                      <label class="btn btn-primary btn-approve" style=" padding: 5px; color: white;">
+                      Upload <input type="file" name="applicationLogo" required
+                     style="display: none;" (change)="logoUpload($event.target.files)" >
+                    </label>
+                    <br>
+                      <!-- <h6 id="logoFileName" style="font-size: 10px;">*No File Selected</h6> -->
+                      <img id="logoImage" src="{{ logoUrl }}" alt="">
+                    </div>
+                  </div>
+          
+                  <div class="col-lg-5 favicon-image">
+                    <div class="form-group ">
+                     <label for="description">Application Favicon : </label>
+                     <br>
+                      <label class="btn btn-primary btn-approve" style="padding: 5px; color: white;">
+                       
+                      Upload  <input type="file" name="applicationFavicon" required
+                      style="display: none;" (change)="faviconUpload($event.target.files)" >
+                    </label>
+                    <br>
+                      <!-- <h6 id="faviconFileName">*No File Selected</h6> -->
+                      <img id="faviconImage" src="{{ faviconUrl }}" alt="">
+                    </div>
+                  </div>
+                </div>
+            
+          
+                <br>
+                       
+              <div class="text-center">
+                   <div class="">
+                    <button class="btn btn-primary btn-submit" [disabled]="applicationForm.invalid" (click)="update()" id="submitButton" type="submit">Submit</button>
+                    <button type="button" class="btn btn-primary btn-close" (click)="abortUpdateAction()">Cancel</button>
+                </div>
+              </div>
+             
+          
+              </form>
+  </section> 
+</div>
+
+</div>

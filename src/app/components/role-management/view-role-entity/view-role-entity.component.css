@@ -1,0 +1,26 @@
+.menu-items {
+  display: block;
+}
+/* .transaction-type label:last-child span{display: none;}
+.btn-default{
+    margin: 5px;
+} */
+
+.fa-arrow-down {
+  margin-left: 8px;
+}
+
+.display-menus {
+  position: relative;
+  top: 15px;
+}
+mat-panel-title {
+  color: #07334c;
+}
+mat-panel-description {
+  color: black;
+}
+.description{
+  width: 15em;   
+  word-wrap: break-word;
+}  

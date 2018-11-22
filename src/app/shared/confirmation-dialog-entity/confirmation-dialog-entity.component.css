@@ -1,0 +1,53 @@
+.dialog{
+width: 260px;
+padding: 10px;
+padding-bottom: -10px;
+max-height: 100px;
+margin-left: -10px;
+}
+.fa-thumbs-up, .fa-exclamation-triangle{
+    font-size: 50px;
+    color: green;
+}
+.fa-exclamation-triangle{
+    font-size: 50px;
+    color: red;
+}
+ .fa-thumbs-down{
+    font-size: 50px;
+    position: relative;
+    /* left:72px; */
+    color: red;
+}
+.btn{ 
+    margin-top: 40px;
+}
+h5{
+    margin-top: 50px;
+    font-weight: bold;
+    color:#ff8500;
+}
+
+.comment-box{
+margin-top: 3em;
+}
+
+h4{
+    
+    font-family: 'Segoe UI';
+    padding-top:2rem;
+}
+.text-center{
+    border: 1em solid white;
+    border-radius: 10px;
+}
+
+.fa-comments{
+    font-size: 8em;
+    margin-right: 35px;
+    border: 0px;
+
+}
+text-area{
+    border: 1px solid black;
+}

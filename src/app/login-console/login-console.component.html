@@ -1,0 +1,81 @@
+  <div class="login-screen">      
+    <mat-progress-bar mode="indeterminate" *ngIf="transitionToPasswordPage"></mat-progress-bar>
+    
+    <div class="login-page" id="login-page" *ngIf="!isUserAuthenticated">
+      <div class="login-component col-md-12">
+  
+        <div class="title main-title col-md-12">
+          Sandstorm - Console 
+        </div>
+        <div class="title login-title col-md-4 col-sm-4 col-xs-4" *ngIf="!viewPasswordComponent">
+          Sign In
+        </div>    
+    
+        <div class="title sub-title col-md-12 col-sm-12 col-xs-12" *ngIf="viewPasswordComponent">
+          Welcome, {{loginForm.value.userId | uppercase}}!
+        </div> 
+           
+        <br>
+        <form [formGroup]="loginForm" id="loginform" name="loginform" method="post" enctype="multipart/form-data">
+  
+          <div class="username-component" *ngIf="viewUserNameComponent">
+            <mat-form-field class="col-md-12 col-sm-12 col-xs-12">
+              <input autofocus id="login-username" matInput formControlName="userId" autocomplete="off" minlength="5" maxlength="20" name="userId" placeholder="UserId"
+                required>
+              <mat-icon *ngIf="doesUserExists" matSuffix align="right" (click)="reset()">
+                <i class="fa fa-times" matTooltip="Clear"></i>
+              </mat-icon>
+              <mat-error *ngIf="loginForm.invalid && loginForm.pristine">UserId is Required</mat-error>
+              <mat-error *ngIf="loginForm.dirty && loginForm.invalid">UserId is Invalid</mat-error>
+  
+            </mat-form-field> 
+            <label class="user-exist-message col-md-12 col-sm-12 col-xs-12" *ngIf="doesUserExists">
+              <i class="fa fa-exclamation-circle"></i> Couldn't find any Console Account with the above UserId</label>
+  
+            <div class="submit-button col-md-10 col-sm-10 col-xs-10">
+              <button (click)="changeView('next')" type="button" mat-raised-button color="primary" id='nextButtonType'>Next</button>
+            </div>  
+   
+
+            <label class="auth-fail-message col-md-12 col-sm-12 col-xs-12" *ngIf="displayError">
+              <i class="fa fa-exclamation-circle"></i> {{loginErrorMessage}}</label>
+  
+          </div>  
+  
+     
+  
+          <div class="userpassword-component" *ngIf="viewPasswordComponent">
+            <mat-form-field class="example-full-width col-md-12"> 
+              <input autofocus type="{{passwordType}}" id="passwordInput" autocomplete="off" matInput placeholder="Password" minlength="5" maxlength="20"
+                class="example-right-align" formControlName="userPassword">
+              <!-- <mat-icon align="right" matSuffix *ngIf="eyeOpen" (click)="changeInputType()">
+                <span class="glyphicon glyphicon-eye-close"></span>
+              </mat-icon> 
+              <mat-icon align="right" matSuffix *ngIf="!eyeOpen" (click)="changeInputType()">
+                <span class="glyphicon glyphicon-eye-open"></span>
+              </mat-icon> -->
+              <mat-error *ngIf="loginForm.controls.userPassword.invalid">Password is Required</mat-error>
+  
+            </mat-form-field> 
+            <div class="passwordPage-buttons col-md-10">
+              <button type="button" id="loginButton"(click)="login()" mat-raised-button color="primary">Login</button>
+              <button type="button" style="margin-right: 6px;" (click)="changeView('back')" mat-stroked-button>Back</button>
+
+            </div>
+  
+          </div>  
+        </form>
+      </div>
+  
+    </div>
+  
+  </div>
+  <div *ngIf="isUserAuthenticated">
+    <div class="redirect"> 
+      <mat-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value">
+      </mat-progress-spinner>
+    </div>
+  </div>
+  
+
+

@@ -1,0 +1,41 @@
+
+
+<section class="popUp">  
+  <div class="text-center">
+      <div class="success-message" *ngIf = "messageType === 'success'">
+        <span class="successIcon"><i class="fa fa-check" aria-hidden="true"></i></span>
+        <h4>{{statusMessage}}</h4>
+          <button type="button" (click)="onNoClick(true)" class="btn btn-default btn-close">Close</button>
+      </div> 
+      <div class="success-message" *ngIf = "messageType === 'error'">
+        <span class="failureIcon"><i class="fa fa-times" aria-hidden="true"></i></span>
+        <!-- <h4 *ngIf="serverError">Server Error, Try Again!</h4> -->
+          <h4 *ngIf="!serverError">{{statusMessage}}</h4>
+          <button type="button" (click)="onNoClick(true)" class="btn btn-default btn-close">OK</button>
+      </div>
+      <div class="success-message" *ngIf = "messageType === 'alert'">
+        <span class="alertIcon"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>        </span>
+          <h4>{{statusMessage}}</h4>
+          <button type="button" (click)="onNoClick(true)" class="btn btn-default btn-close">Confirm</button>
+          <button type="button" (click)="onNoClick(false)" class="btn btn-default btn-close">Cancel</button>
+      </div>
+      <div class="success-message" *ngIf = "messageType === 'comments'">
+          <span class="alertIcon"><i class="fa fa-comments" aria-hidden="true"></i>        </span>
+          <div class="row comment-box col-md-12" ng-show="remark">
+              <div class="">
+                  <form [formGroup]="commentForm">                   
+                    <mat-form-field>
+                        <textarea matInput required placeholder="Comments"maxlength="255" minlength="5" formControlName="comments"  name="comments" class="form-control" rows="5" id="comment"></textarea>
+                        <mat-error *ngIf="commentForm.dirty && commentForm.invalid">Required Field</mat-error>
+                    </mat-form-field>
+                  </form>
+                  </div>
+            
+              </div><br>           
+            <button type="button" [disabled]="commentForm.invalid" (click)="addComments(true)" class="btn btn-default btn-close">Confirm</button>
+            <button type="button" (click)="addComments(false)" class="btn btn-default btn-close">Cancel</button>
+        </div>
+  </div>
+  </section>
+
+  

@@ -1,0 +1,149 @@
+<div class="content-wrapper">
+
+  <div class="list-applications" id="list-applications" style="transition: 0.8s;">
+
+    <section class="padL35 content-header">
+      <h1 class="marTB15 txt-orange">
+        <span>
+          <span class="evo-entity"></span>Entity Management</span>
+      </h1>
+
+      <div class="rightSecBtn adjust-plussymbol" *ngIf="user.role.roleType=='MAKER'">
+        <span [routerLink]="['/addEntity']" mat-raised-button matTooltip="Add New Entity">
+          <span class="evo-entity"></span>
+          <span class="plus-symbol">+</span>
+        </span>
+      </div>
+    </section>
+
+ 
+
+    <section class="content">
+
+      <div class="row row-padding">
+          <div class="col-md-12">
+            <h4 class="txt-blue">Filters</h4>
+             <form>
+             <div class="row">
+
+              
+               <div class="col-lg-3">
+                 <div class="form-group">
+                     <mat-form-field [color]="'primary'">
+                         <mat-select placeholder="Parent Entity" [disabled] = "isViewAllOptionSelected" (selectionChange)="getFilteredEntityData('filter')" [(ngModel)]="defaultFilterCriteria.parent" name="parent">
+                           <mat-option *ngFor="let parentEntity of listOfParentEntities" value="{{parentEntity.name}}">{{parentEntity.name}}</mat-option>
+                         </mat-select>    
+                       </mat-form-field>
+                </div>  
+               </div>  
+               
+               <div class="col-lg-3">
+                 <div class="form-group">
+                     <mat-form-field [color]="'primary'">
+                         <mat-select placeholder="Activation Status"  [disabled] = "isViewAllOptionSelected" (selectionChange)="getFilteredEntityData('filter')" [(ngModel)]="defaultFilterCriteria.activationStatus" name="activationStatus">
+                           <mat-option  value="ACTIVE">Active</mat-option>
+                           <mat-option  value="INACTIVE">Inactive</mat-option>
+                         </mat-select>
+                       </mat-form-field>
+                </div>
+               </div>
+              
+               <div class="col-lg-3">
+                 <div class="form-group">
+                     <mat-form-field [color]="'primary'">
+                         <mat-select placeholder="Processing Status"  [disabled] = "isViewAllOptionSelected" (selectionChange)="getFilteredEntityData('filter')" [(ngModel)]="defaultFilterCriteria.processingStatus" name="processingStatus">
+                             <mat-option  value="AUTHORIZED">Authorized</mat-option>
+                           <mat-option  value="PENDING_AUTHORIZATION">Pending_Authorization</mat-option>
+                           <mat-option  value="REJECTED">Rejected</mat-option>
+          
+                         </mat-select>
+                       </mat-form-field>
+                </div>
+               </div>
+                             
+    
+               <div class="col-lg-3">
+                 <div class="checkbox form-group">
+                     <mat-checkbox (change)="checkBoxTicked(viewAll._checked)" #viewAll>View All</mat-checkbox>
+                     <mat-icon><i class="fa fa-times" matTooltip="Reset" (click)="reset('html'); viewAll._checked=false" ></i></mat-icon>
+ 
+              </div> 
+               </div>  
+             </div>   			
+          </form>    
+          </div>
+        </div>
+
+      <div class="row">
+        <div class="col-md-12">
+            <div class="gridHeadSec">
+          <h4 class="txt-blue">Available Entity Details</h4>
+          <h5>Showing {{startIndex}} to {{ noOfEntitiesInCurrentPage }} out of {{ totalNoOfEntities }}</h5>
+      		<div class="pull-right">						
+						<h5 class="txt-black">Results per Page</h5>							
+						<mat-select name="tablePageSize" (selectionChange)="setPageSize()" [(ngModel)]="pageSize" class="form-control">
+                <mat-option [value]="5" >5</mat-option>
+                <mat-option [value]="10">10</mat-option>
+                <mat-option [value]="15">15</mat-option>
+                <mat-option [value]="20">20</mat-option>
+			     	</mat-select>
+					</div>
+</div>
+      <!--Table-->
+      <div class="tablegrid animated row">
+        <div class="col-md-12">
+     
+          <div class="slide-table">
+            <div id="container-table">
+              <div id="content-table">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                       
+                        <tr>
+                            <th *ngFor="let header of tableHeader">{{header}}</th>									       
+                          </tr> 
+              
+                  </thead> 
+                  <tbody *ngIf ="listOfEntities?.length != 0">
+                    <tr *ngFor="let entity of listOfEntities" (click)="view(entity)">
+
+                      <td class="ellipsis">{{ entity?.name | uppercase}}</td>
+                      <td>{{ entity?.parent | uppercase}}</td>
+                      <!-- <td>{{ entity?.accessLevel}}</td> -->
+                      <td class="ellipsis">{{ entity?.entityCode | uppercase}}</td>
+                      <td>{{ entity?.activationStatus | uppercase}}</td>
+
+                      <td>{{ entity?.processingStatus}}</td>
+                      <td>{{ entity?.createdBy}}</td>
+ 
+                      <td>{{ entity?.lastUpdatedDate | date : 'medium'}}</td>
+                    </tr>
+                  </tbody>
+                  <!--Table body-->
+
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Table-->
+      </div>
+
+      <div class="pull-right marTB2 paginationSec">			
+        <button class="btn btn-default"  (click)="setCurrentPage(-1)" [disabled]="pageNo == 1" ><i class="fa fa-angle-double-left" aria-hidden="true"></i> Prev</button>
+            <!-- <input min=1 max = "{{totalNoOfPages}}" type="text" class="text-center paginationInput"  [(ngModel)]="pageNo" style="width:30px;" value="{{pageNo}}">/ {{totalNoOfPages}}  -->
+                 {{pageNo}} / {{totalNoOfPages}}
+          <button class="btn btn-default" (click)="setCurrentPage(1)" [disabled]="listOfEntities?.length ==0 || pageNo==totalNoOfPages"  >Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+        </div>
+    <div class="row row-padding" *ngIf="listOfEntities?.length == 0">   
+      <div class="row text-center">
+        <h5 class="txt-red" style="color:red;">No Records Found!</h5>
+        <br>
+      </div>
+    </div> 
+
+
+</div>
+  </div>
+</section>
+</div>

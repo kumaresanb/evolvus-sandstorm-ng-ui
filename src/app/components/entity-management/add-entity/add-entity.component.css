@@ -1,0 +1,85 @@
+
+/* form {
+    margin-top: 10px;
+ 
+  } */
+
+  
+  label {
+    color: black;
+    font-weight: 50;
+  }
+  
+  
+  /* button:disabled {
+      margin-left: -200px;
+    cursor: not-allowed;
+    pointer-events: all !important;
+  }
+  
+  .list-group ul li:hover {
+    background-color: blue;
+    color: white;
+  } */
+  label{
+    padding: 0px;
+    background-color: transparent;
+    border: 0px;
+  }
+  .btn-info {
+    /* padding: 2px 8px; */
+    /* border-radius: 20px; */
+    float: right;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-right: -30px;
+  } 
+  
+/*   
+  .logo-image {
+    margin-top: 2em;
+  }
+  
+  .favicon-image {
+    margin-top: 2em;
+  }
+  
+  button.form-submit {
+    margin-top: 2em;
+  }
+  
+  
+  .example-form {
+    min-width: 180px;
+    width: 80%;
+  }
+  .example-full-width {
+    width: 90%;
+  } */
+  
+/* 
+  .createEntity .errorMsg {
+    position: absolute;
+    margin: 0;
+    bottom: 1px;
+} */
+
+ .example-form {
+  min-width: 200px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+.marB30{
+margin-top: 1em;
+}
+.menu-group-title{
+color:#ff8500;
+font-size: 15px;
+
+}
+
+

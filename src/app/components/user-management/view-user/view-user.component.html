@@ -1,0 +1,169 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper viewFormSec">
+  <!-- Content Header (Page header) -->
+  <section class="padL35 content-header ">
+    <h1 class="marTB15 txt-orange">
+      <div class="img_icon">
+        <span>
+          <i class="fa fa-angle-left" mat-raised-button matTooltip="Back" [routerLink]="['/userManagement']" aria-hidden="true"></i> View User Details</span>
+      </div>
+    </h1>
+  </section>
+
+  <section class="content">
+    <form>
+      <div class="row">
+        <div class="col-md-12">
+          <h4>User Information</h4>
+          <hr>
+        </div>
+        <div class="col-md-8 ">
+          <div class="col-md-6 no-padding-left">
+            <div class="form-group">
+              <h5>User Id</h5>
+              <label>{{selectedUser?.userId}}</label>
+            </div>
+
+            <div class="form-group">
+              <h5>Designation</h5>
+              <label>{{selectedUser?.designation}}</label>
+            </div>
+
+            <div class="form-group">
+              <h5>Mobile Number</h5>
+              <label>{{selectedUser?.contact.mobileNumber}}</label>
+            </div>
+
+
+            <div class="form-group">
+              <h5>Fax</h5>
+              <label>{{selectedUser?.contact.faxNumber}}</label>
+            </div>
+          </div>
+
+          <div class="col-md-6 username">
+            <div class="form-group">
+              <h5>User Name</h5>
+              <label>{{selectedUser?.userName}}</label>
+            </div>
+            <!-- <div class="form-group">
+              <h5>Branch ID </h5>
+              <label>{{selectedUser?.entityId}}</label>
+            </div> -->
+
+            <div class="form-group">
+              <h5>Email ID </h5>
+              <label>{{selectedUser?.contact.emailId}}</label>
+            </div>
+            <div class="form-group">
+                <h5>Status </h5>
+                <label>{{selectedUser?.processingStatus}}</label>
+              </div>
+
+          </div>
+        </div>
+
+        <!-- <div class="col-md-4">
+           <div><img src="assets/images/user.jpeg" height="150" width="190"></div>
+           <div class="">
+             <button type="button" class="btn btn-info btn-add" style="margin-top:11%;margin-bottom:5%;">
+                 <i class="fa fa-camera" aria-hidden="true"></i> Update / Change Photo
+               </button>
+             </div>
+         </div>				 -->
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Access Details</h4>
+          <hr>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Role</h5>
+            <label>{{selectedUser?.role.roleName}}</label>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Activation Status</h5>
+            <label>{{selectedUser?.activationStatus}}</label>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Amount Limit Details</h4>
+          <hr>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Transaction Limit</h5>
+            <label>{{selectedUser?.individualTransactionLimit}}</label>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Daily Limit</h5>
+            <label>{{selectedUser?.dailyLimit}}</label>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Currency</h5>
+            <label>{{selectedUser?.masterCurrency}}</label>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="showWorkFlow">
+        <div class="work-flow-view">
+          <mat-tab-group>
+            <mat-tab label="Work Flow - History">
+
+            </mat-tab>
+
+          </mat-tab-group>
+        </div>
+        <div class="work-flow">
+          <app-evolvus-workflow-view [eventList]="listOfEvents"></app-evolvus-workflow-view>
+        </div>
+        <div class="no-event-data" *ngIf="listOfEvents.length==0">
+          <h6>No Data Found!</h6>
+        </div>
+        <hr>
+      </div>
+
+
+
+
+
+
+      <div class="row text-center">
+        <div class="col-sm-12">
+          <button *ngIf="doIExist('Approve') && selectedUser?.processingStatus == 'PENDING_AUTHORIZATION' && loggedInUser?.userId != selectedUser.createdBy"  type="button" class="btn btn-default btn-approve" (click)="takeAction('APPROVE')"> Approve</button>
+          <button *ngIf="doIExist('Reprocess') && selectedUser?.processingStatus == 'PENDING_AUTHORIZATION' && loggedInUser?.userId != selectedUser.createdBy" type="button" class="btn btn-default btn-submit" (click)="takeAction('REPROCESS')">
+            Reprocess</button>
+          <button *ngIf="doIExist('Reject') && selectedUser?.processingStatus == 'PENDING_AUTHORIZATION' && loggedInUser?.userId != selectedUser.createdBy" type="button" class="btn btn-default btn-reject" (click)="takeAction('REJECT')"> Reject</button>
+
+        <button type="button"  class="btn btn-default btn-submit" *ngIf="(doIExist('Modify') && ((selectedUser?.processingStatus == 'AUTHORIZED') || (selectedUser?.processingStatus == 'REPROCESS')))" (click)="updateUser()" [disabled]="isStatusPending">
+          Modify
+        </button>
+        <button type="button" class="btn btn-default btn-submit" (click)="getWorkFlowData()">
+          <span *ngIf="!showWorkFlow">Show WorkFlow</span>
+          <span *ngIf="showWorkFlow">Hide WorkFlow</span>
+        </button>
+        <button type="button" class="btn btn-default btn-close" (click)="abortViewAction()"> Cancel</button>
+          </div>
+      </div>
+    </form>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

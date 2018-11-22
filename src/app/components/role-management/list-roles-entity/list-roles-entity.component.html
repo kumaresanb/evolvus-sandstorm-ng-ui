@@ -1,0 +1,131 @@
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="padL35 content-header ">
+      <h1 class="marTB15 txt-orange">
+        <span><span class="evo-role"></span>Role Management</span>
+      </h1>
+      
+    <div class="rightSecBtn adjust-plussymbol" *ngIf = "user.role.roleType=='MAKER' " > 
+        <span  [routerLink]="['/addRole']" mat-raised-button
+        matTooltip="Add New Role"><span class="evo-role"></span><span class="plus-symbol">+</span></span>
+     </div>
+    </section> 
+ 
+     <section class="content">
+       <div class="row row-padding">
+         <div class="col-md-12">
+           <h4 class="txt-blue">Filters</h4>
+            <form>
+            <div class="row">
+              <div class="col-lg-3">
+                 
+                <div class="form-group">
+                    <mat-form-field [color]="'primary'">
+                        <mat-select placeholder="Application Category" [disabled] = "isViewAllOptionSelected" (selectionChange)="getFilteredRoleData('filter')"required [(ngModel)]="defaultFilterCriteria.applicationCode" name="applicationCategory" >
+                          <mat-option *ngFor="let applicationCategory of listOfApplicationCategory" value="{{applicationCategory}}">{{applicationCategory}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+               </div>
+              </div>
+              
+              <div class="col-lg-3">
+                <div class="form-group">
+                    <mat-form-field [color]="'primary'">
+                        <mat-select placeholder="Activation Status"  [disabled] = "isViewAllOptionSelected" (selectionChange)="getFilteredRoleData('filter')" [(ngModel)]="defaultFilterCriteria.activationStatus" name="activationStatus" >
+                          <mat-option  value="ACTIVE">Active</mat-option>
+                          <mat-option  value="INACTIVE">Inactive</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+               </div>
+              </div>
+              
+              <div class="col-lg-3">
+                <div class="form-group">
+                    <mat-form-field [color]="'primary'">
+                        <mat-select placeholder="Processing Status"  [disabled] = "isViewAllOptionSelected" (selectionChange)="getFilteredRoleData('filter')" [(ngModel)]="defaultFilterCriteria.processingStatus" name="processingStatus" #proStatusLocalVar>
+                            <mat-option  value="AUTHORIZED">Authorized</mat-option>
+                          <mat-option  value="PENDING_AUTHORIZATION">Pending Authorization</mat-option>
+                          <mat-option  value="REJECTED">Rejected</mat-option>
+         
+                        </mat-select>
+                      </mat-form-field>
+               </div>
+              </div>
+              
+              <div class="col-md-3 filterView">
+                <div class="checkbox form-group">
+                    <mat-checkbox (change)="checkBoxTicked(viewAll._checked)" #viewAll>View All</mat-checkbox>
+                    <mat-icon><i class="fa fa-times" (click)="reset('html'); viewAll._checked=false" matTooltip="Reset"></i></mat-icon> 
+             </div>
+              </div>
+            </div>   			
+         </form> 
+         </div>
+       </div>
+
+       <div class="row">
+    		<div class="col-md-12">
+    			<div class="gridHeadSec">
+    				<h4>Available Role Details</h4> 
+    				<h5>Showing {{startIndex}} to {{ noOfRolesInCurrentPage }} out of {{ totalNoOfRoles }}</h5>
+    				
+    				<div class="pull-right">						
+						<h5 class="txt-black">Results per Page</h5>							
+						<mat-select name="tablePageSize" (selectionChange)="setPageSize()" [(ngModel)]="pageSize" class="form-control">
+                <mat-option [value]="5" >5</mat-option>
+                <mat-option [value]="10">10</mat-option>
+                <mat-option [value]="15">15</mat-option>
+                <mat-option [value]="20">20</mat-option>
+			     	</mat-select>
+					</div>
+    			</div>
+    			<div class="tablegrid animated">
+						<div class="slide-table">
+				 			<!-- <div class="float-buttons"><button id="slideleft" ng-click="slideright()"><span><</span></button></div> -->
+    							<div id="container-table">
+									<div id="content-table">
+					    				<table class="table table-bordered table-striped ">
+										<thead>
+									    
+                        <tr>
+                            <th *ngFor="let header of tableHeader">{{header}}</th>									       
+                          </tr> 
+									     
+									    </thead>
+									    <tbody>
+									      <tr (click)="view(role)" *ngFor="let role of listOfRoles">
+									        <td>{{role?.roleName}}</td>
+									        <td>{{role?.applicationCode}}</td>
+									        <td>{{role?.activationStatus}}</td>
+													<td>{{role?.processingStatus}}</td>
+													<td>{{role?.createdBy}}</td>
+									        <td>{{role?.lastUpdatedDate | date : 'medium'}} </td>
+									       
+									        <td></td>
+									      </tr>
+									    
+									    </tbody>
+									</table>
+								</div>
+							</div>
+							<!-- <div class="float-buttons">   <button id="slideright" ng-click="slideleft()"><span>></span></button></div> -->
+    					</div>
+    				</div>
+    			<div class="pull-right marTB2 paginationSec">			
+					<button class="btn btn-default" (click)="setCurrentPage(-1)" [disabled]="pageNo == 1 "><i class="fa fa-angle-double-left" aria-hidden="true"></i> Prev</button>
+              <!-- <input  type="text" class="text-center paginationInput"  [(ngModel)]="pageNo" style="width:30px;" value="{{pageNo}}">/ {{totalNoOfPages}}  -->
+             {{pageNo}} / {{totalNoOfPages}}
+		    		<button class="btn btn-default" (click)="setCurrentPage(1)" [disabled]="pageNo==totalNoOfPages">Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+          </div>
+          <div class="row row-padding" *ngIf="listOfRoles?.length == 0">
+            <div class="row text-center">
+              <h5 class="txt-red" style="color:red;">No Records Found!</h5>
+              <br>
+            </div>
+          </div> 
+    		</div>
+    	</div>
+     </section><!-- /.content -->
+  </div><!-- /.content-wrapper -->
+ 

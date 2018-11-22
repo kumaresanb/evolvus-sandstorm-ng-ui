@@ -1,0 +1,20 @@
+mat-form-field{
+    width: 100%;
+}
+   
+
+.slide-table tbody tr td{
+overflow: hidden;  
+} 
+.ellipsis {
+    max-width: 40px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap; 
+}  
+.fa-times{
+    margin-left: 2em;    
+    cursor: pointer;  
+    font-size: 20px;
+    font-weight: lighter;
+  }  

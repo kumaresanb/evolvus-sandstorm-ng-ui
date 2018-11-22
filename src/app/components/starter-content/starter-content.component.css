@@ -1,0 +1,30 @@
+.info-box-content span{
+    color: black;
+}
+.col-md-6:hover .info-box .info-box-content span{
+    color: white;
+}
+.force-overflow .request-time{
+    margin: 0px;
+    margin-top: -5px;
+}
+
+h6 a{
+cursor: pointer;
+}
+
+
+
+
+.row .col-md-12 .notification {
+position: relative;
+top: 2px;
+}
+.fa{
+    color: darkgoldenrod;
+    font-size: 15px;
+}
+
+.notification b{
+    color: red;
+}

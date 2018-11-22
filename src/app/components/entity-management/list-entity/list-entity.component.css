@@ -1,0 +1,33 @@
+
+mat-form-field{
+  width: 100%;
+}
+.btn {
+    padding: 5px;
+  }
+  
+  button .btn .view-details-button {
+    background-color: #0d476d;
+    color: white;
+  }
+  .ellipsis {
+    max-width: 40px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap; 
+}
+  
+  
+.reset-form{
+  position: relative;
+  top: 15px;  
+}
+  
+  
+  .fa-times{
+    margin-left: 2em;    
+    cursor: pointer;  
+    font-size: 20px;
+    font-weight: lighter;
+  }
+  

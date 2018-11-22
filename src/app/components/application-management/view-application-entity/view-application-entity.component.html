@@ -1,0 +1,89 @@
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper viewFormSec">
+  <!-- Content Header (Page header) -->
+  <section class="padL35 content-header ">
+    <h1 class="marTB15 txt-orange">
+      <div class="img_icon">
+       <span><i class="fa fa-angle-left"  mat-raised-button matTooltip="Back" [routerLink]="['/applicationManagement']" aria-hidden="true"></i> View Application Details</span>
+     </div>  
+    </h1>
+  </section> 
+  
+
+   <section class="content">
+     <form>
+       <div class="row">
+         <div class="col-md-12">
+           <h4>Application Information</h4>
+           <hr>
+         </div>
+         <div class="col-md-4">
+                <div class="form-group">
+                   <h5>Application Name</h5>
+                   <label>{{selectedApplication?.applicationName}}</label>
+               </div>
+          </div>
+
+          <div class="col-md-4">						  
+               <div class="form-group">
+                   <h5>Application Code</h5>
+                   <label>{{selectedApplication?.applicationCode}}</label>
+               </div>
+           </div>
+          <div class="col-md-4">
+               <div class="form-group">
+                   <h5>Description</h5>
+                   <label>{{selectedApplication?.description}}</label>
+               </div>
+          </div>
+
+          <div class="col-md-4">
+               <div class="form-group">
+                   <h5>Application Status</h5>
+                   <label>{{selectedApplication?.enableFlag == '1' ? 'Enabled' : 'Disabled' }}</label>
+               </div>
+         </div>
+           
+       </div>
+
+     
+
+       <div class="row images">
+   
+        <div class="col-md-4 logo-image" id="logo">
+          <div class="form-group">
+              <h5>Application Logo  </h5>
+             
+  
+            <img id="logoImage" src="{{ selectedApplication?.logo }}" alt="">
+          </div>
+        </div>
+
+        <div class="col-md-4 favicon-image" id="favicon">
+          <div class="form-group ">
+            <h5>Application Favicon </h5>
+          
+    
+            <img id="faviconImage" src="{{ selectedApplication?.favicon }}" alt="">
+          </div>
+        </div>
+     
+ </div>
+
+    <br>   
+    <div class="text-center">
+       <!-- <div class="col-sm-12"> -->
+          <div class="">
+               <button type="button" class="btn btn-default btn-approve" ng-click="confirm();"> Approve</button>
+               <button type="button" class="btn btn-default btn-reject" ng-click="reject();"> Reject</button>
+               <button type="button" class="btn btn-default btn-submit" (click)="updateApplication()"> Modify</button>
+               <button type="button" class="btn btn-primary btn-close" (click)="abortViewAction()">Cancel</button>
+              </div>
+       </div>
+     <!-- </div> -->
+     </form>
+   </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+          <style>
+/* .content-wrapper{height: {{contentwrapper}} } */
+</style>

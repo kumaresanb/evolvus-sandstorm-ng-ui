@@ -1,0 +1,170 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper addFormSec">
+  <!-- Content Header (Page header) -->
+  <section class="padL35 content-header ">
+    <h1 class="marTB15 txt-orange">
+      <div class="img_icon" >
+        <span>
+          <i class="fa fa-angle-left" mat-raised-button matTooltip="Back" [routerLink]="['/roleManagement']" aria-hidden="true"></i> Add New Role</span>
+      </div>
+    </h1>
+  </section>
+
+  <section class="content">
+
+
+
+
+
+    <div class="row">
+
+      <div class="col-md-4">
+        <h4>Role Information</h4>
+        <hr>
+      </div>
+    </div>
+
+
+
+    <form [formGroup]="roleForm">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group">
+            <mat-form-field class="example-full-width" >
+              <input required matInput placeholder="Role Name" autocomplete="off" formControlName="roleName" name="roleName" (keyup)="toUpperCase($event)">
+              <mat-error id="roleNameError1" *ngIf="roleForm.controls.roleName.dirty && roleForm.controls.roleName.invalid">Invalid Role Name. Please check info!</mat-error>
+              <mat-error  id="roleNameError2" *ngIf="roleForm.controls.roleName.pristine">This is a required field</mat-error>
+              <label class="btn btn-info" mat-raised-button matTooltip="6 - 35 characters &#10004; [a-zA-Z0-9] &#10004; Hyphen and Underscore &#10004; Space &#10008;">
+                <i class="fa fa-question-circle"></i>
+              </label>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+
+        <div class="col-md-5">
+          <div class="form-group">
+            <mat-form-field [color]="'primary'" class="example-full-width">
+              <mat-select placeholder="Application Category" formControlName="applicationCode" (ngModelChange)="getMenuGroups(applicationCategory.value)"
+                required name="applicationCategory" #applicationCategory>
+
+                <mat-option *ngFor="let applicationCategory of listOfApplicationCategory" value="{{applicationCategory}}">{{applicationCategory}}</mat-option>
+              </mat-select>
+              <mat-error  id="applicationCategoryRoleError"*ngIf="roleForm.controls.applicationCode.invalid">This is a required field</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-md-5">
+          <div class="form-group">
+            <mat-form-field [color]="'primary'" class="example-full-width">
+              <mat-select placeholder="Role Type" formControlName="roleType" required name="roleType">
+                <mat-option *ngFor="let roleType of listOfRoleTypes" value="{{roleType}}">{{roleType}}</mat-option>
+              </mat-select>
+              <mat-error  id="roleTypeError" *ngIf="roleForm.controls.roleType.pristine">This is a required field</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+<!--
+        <div class="col-md-5">
+          <div class="form-group">
+            <mat-form-field [color]="'primary'" class="example-full-width">
+              <mat-select placeholder="Transaction Type" formControlName="txnType" required name="txnType" multiple>
+                <mat-option *ngFor="let txnType of listOfTxnTypes" value="{{txnType}}">{{txnType}}</mat-option>
+              </mat-select>
+              <mat-error  id="txnTypeError" *ngIf="roleForm.controls.txnType.pristine">This is a required field</mat-error>
+            </mat-form-field>
+          </div>
+        </div> -->
+
+        <!-- <div class="col-md-5">
+          <div class="form-group">
+            <mat-form-field [color]="'primary'" class="example-full-width">
+              <mat-select placeholder="Activation Status" formControlName="activationStatus" required name="activationStatus">
+                <mat-option value="ACTIVE">Active</mat-option>
+                <mat-option value="INACTIVE">Inactive</mat-option>
+              </mat-select>
+              <mat-error *ngIf="roleForm.controls.activationStatus.invalid">This is a required field</mat-error>
+            </mat-form-field>
+          </div>
+        </div> -->
+
+        <div class="col-md-5">
+          <div class="form-group">
+            <mat-form-field class="example-full-width">
+
+              <textarea matInput placeholder="Role Description" autocomplete="off" formControlName="description" name="description"></textarea>
+              <mat-error  id="roleDescriptionError1" *ngIf="roleForm.controls.description.dirty && roleForm.controls.description.invalid">Invalid Entity Description. Please check info!</mat-error>
+              <mat-error   id="roleDescriptionError2" *ngIf="roleForm.controls.description.pristine">This is a required field</mat-error>
+              <label class="btn btn-info" mat-raised-button matTooltip="6 - 140 characters &#10004;">
+                <i class="fa fa-question-circle"></i>
+              </label>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row" *ngIf="applicationCategorySelected">
+        <div class="col-md-12">
+          <h4>Menu Access Details</h4>
+          <hr>
+        </div>
+      </div>
+
+      <div>
+        <mat-tab-group *ngIf="applicationCategorySelected">
+          <mat-tab label="Menus">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="rolemenu-acces-tabs">
+                  <div class="tabContent">
+                    <div class="marB30">
+                      <div class="form-group">
+                        <label class="checkbox-inline" *ngFor="let menuGroup of listOfMenuGroups">
+                          <label for="" class="menu-group-title txt-orange">{{menuGroup.title}}</label>
+                          <div class="menu-items" *ngFor="let menuItem of menuGroup?.menuItems">
+                            <mat-checkbox class="mat-pseudo-checkbox"  (change)="addMenuItem(menuGroup, menuItem)" id="{{menuItem.menuItemCode | lowercase}}"
+                              name="{{menuItem.menuItemCode | lowercase }}" value="{{menuItem?.menuItemCode | lowercase}}">{{menuItem?.title}}</mat-checkbox>
+                              <br>
+                              <div class="sub-menu-items">
+                                <div class=""  *ngFor="let subMenuItem of menuItem.subMenuItems">
+                                  <mat-checkbox class="mat-pseudo-checkbox" *ngIf="menuItem.selectedFlag" (change)="addSubMenuItem(menuItem, subMenuItem)" id="{{subMenuItem.menuItemCode | lowercase}}"
+                                  name="{{subMenuItem.menuItemCode | lowercase }}" value="{{subMenuItem?.menuItemCode | lowercase}}">{{subMenuItem?.title}}</mat-checkbox>
+                                 </div>
+                              </div>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+
+      <div>
+
+      </div>
+      <div class="row text-center">
+        <div class="col-md-12" style="margin-left: 2em;">
+          <div class="">
+            <button type="submit"  [disabled]="roleForm.invalid" class="btn btn-default btn-submit" (click)="save()">Add Role</button>
+            <button type="button" class="btn btn-default btn-close" (click)="abortSaveAction()"> Close</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+
+
+
+
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

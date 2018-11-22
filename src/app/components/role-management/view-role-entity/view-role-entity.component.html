@@ -1,0 +1,176 @@
+<div class="content-wrapper viewFormSec">
+  <section class="padL35 content-header ">
+    <h1 class="marTB15 txt-orange">
+      <div class="img_icon">
+        <span>
+          <i class="fa fa-angle-left" mat-raised-button matTooltip="Back" [routerLink]="['/roleManagement']" aria-hidden="true"></i> View Role Details</span>
+      </div>
+    </h1>
+  </section>
+
+  <section class="content">
+    <form>
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Role Information</h4>
+          <hr>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Role Name</h5>
+            <label>{{selectedRole?.roleName }}</label>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Application Category</h5>
+            <label>{{selectedRole?.applicationCode}}</label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Activation Status</h5>
+            <label>{{selectedRole?.activationStatus}}</label>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <h5>Role Type</h5>
+            <label>{{selectedRole?.roleType}}</label>
+          </div>
+        </div>
+
+        <!-- <div class="col-md-4">
+          <div class="form-group transaction-type">
+            <h5>Transaction Type</h5>
+            <label *ngFor="let txnType of selectedRole?.txnType">{{txnType}}
+              <span>,&nbsp;</span>
+            </label>
+          </div>
+        </div> -->  
+
+        <div class="col-md-4 description">
+          <div class="form-group">
+            <h5>Role Description</h5>
+            <label>{{selectedRole?.description}}</label>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Menu Access Details</h4>
+          <hr>
+        </div>
+      </div>
+
+      <mat-tab-group>
+        <mat-tab label="Menus">
+
+                <!-- <div class="col-md-12">
+                <div class="form-group menu-item-display" *ngFor="let mGroup of selectedRole?.menuGroup">
+                  <h5 style="font-weight:bold; font-size: 15px;">{{mGroup?.title}}</h5>
+                  <button mat-button type="button" *ngFor="let menuItem of mGroup?.menuItems; let i = index" matTooltip="Type : {{menuItem.menuItemType | titlecase}}"
+                    [matMenuTriggerFor]="displaySubMenuItems">
+                    <i class="fa fa-angle-right"></i>
+                    {{menuItem?.title}}
+                    <mat-menu #displaySubMenuItems="matMenu">
+                      <button *ngFor="let subMenuItem of menuItem.subMenuItems" matTooltip="Type : {{menuItem.menuItemType | titlecase}}" mat-menu-item>{{subMenuItem.title}}</button>
+                    </mat-menu>
+                  </button>
+                </div>
+              </div> -->
+       <!-- <div class="col-sm-12" >  -->
+
+       <!-- </div>  -->
+               
+        </mat-tab>
+      </mat-tab-group>
+      <mat-accordion *ngFor="let mGroup of selectedRole?.menuGroup"  class="display-menus">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header class="right-aligned-header">
+              <mat-panel-title>  
+                {{mGroup.title | uppercase}}
+              </mat-panel-title>
+              <mat-panel-description >
+                {{selectedRole?.roleName}} has access to below menus.
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-accordion *ngFor="let menuItem of mGroup?.menuItems">
+              <mat-expansion-panel hideToggle=false >
+                <mat-expansion-panel-header class="right-aligned-header">
+                  <mat-panel-title>
+                    {{menuItem?.title | uppercase}}
+                  </mat-panel-title>
+                  <mat-panel-description *ngIf="menuItem?.subMenuItems?.length>0" style="font-size: 13px;">
+                    {{selectedRole?.roleName}} has following authority
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+               
+
+                <p *ngFor="let subMenuItem of menuItem.subMenuItems" style="text-align: left; color:black;">
+                  <i class="fa fa-pencil"></i>&nbsp;
+ 
+
+
+                  {{subMenuItem?.menuItemCode | uppercase}}</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-expansion-panel>
+   
+        </mat-accordion>
+
+      <br>
+      <div *ngIf="showWorkFlow">
+        <div class="work-flow-view">
+          <mat-tab-group>
+            <mat-tab label="Work Flow - History">
+
+            </mat-tab>
+
+          </mat-tab-group>
+        </div>
+        <div class="work-flow">
+          <app-evolvus-workflow-view [eventList]="listOfEvents"></app-evolvus-workflow-view>
+        </div>
+        <div class="no-event-data" *ngIf="listOfEvents.length==0">
+          <h6>No Data Found!</h6>
+        </div>
+        <hr>
+      </div>
+
+
+      <div class="row text-center">
+        <div class="col-sm-12">
+
+
+
+
+          <button *ngIf="doIExist('Approve') && selectedRole?.processingStatus == 'PENDING_AUTHORIZATION'  && user?.userId != selectedRole?.createdBy" type="button" class="btn btn-default btn-approve"
+            (click)="takeAction('APPROVE')"> Approve</button>
+          <button *ngIf="doIExist('Reprocess') && selectedRole?.processingStatus == 'PENDING_AUTHORIZATION'  && user?.userId != selectedRole?.createdBy" type="button" class="btn btn-default btn-submit"
+            (click)="takeAction('REPROCESS')">
+            Reprocess</button>
+          <button *ngIf="doIExist('Reject') && selectedRole?.processingStatus == 'PENDING_AUTHORIZATION'  && user?.userId != selectedRole?.createdBy" type="button" class="btn btn-default btn-reject"  
+            (click)="takeAction('REJECT')"> Reject</button>
+  
+          <!-- <button type="button" class="btn btn-default btn-submit" *ngIf="(doIExist('Modify') && ((selectedRole?.processingStatus == 'AUTHORIZED') || (selectedRole?.processingStatus == 'REPROCESS')))"
+            (click)="updateRole()" [disabled]="isStatusPending">
+            <span *ngIf="isStatusPending" matTooltip="Processing Status is Pending">Modify</span>
+            <span *ngIf="!isStatusPending">Modify</span>
+          </button> -->
+          <button type="button" class="btn btn-default btn-submit" (click)="getWorkFlowData()">  
+            <span *ngIf="!showWorkFlow">Show WorkFlow</span>
+            <span *ngIf="showWorkFlow">Hide WorkFlow</span>
+          </button>
+          <button type="button" class="btn btn-default btn-close" (click)="abortViewAction()"> Cancel</button>
+
+
+        </div>
+      </div>
+    </form>
+
+  </section>

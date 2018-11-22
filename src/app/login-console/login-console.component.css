@@ -1,0 +1,83 @@
+mat-progress-spinner {
+  margin-left: 43em;
+  margin-top: 17em;
+}
+
+.login-screen {
+  max-width: 480px;
+  max-height: 250px;
+  position: absolute;
+  left: 30em;
+  top: 13em;
+}
+mat-progress-bar {
+  position: relative;
+  top: 5px;
+  width: 28.4em;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  color: red;
+  margin-left: 2em;
+}
+.login-page {
+  width: 400px;
+  height: 220px;
+  margin-left: 2em;
+  background-color: transparent;
+  box-shadow: 5px 5px 30px grey;
+  border-radius: 10px;
+}
+
+.title {
+  font-family: "Quicksand", sans-serif;
+}
+.main-title {
+  font-size: 2em;
+}
+.login-title {
+  font-weight: bold;
+}
+.sub-title {
+  font-weight: bold;
+}
+
+.passwordPage-buttons {
+  margin-top: 0.6em;
+  
+}
+.submit-button {
+  margin-top: 0.6em;
+
+}
+#loginButton{
+  margin-right: 0.5em;
+}
+.glyphicon {
+  font-size: 12px;
+}
+
+.user-exist-message {
+  padding-top: 0;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 10px;
+  font-weight: lighter;
+  color: red;
+}
+
+.fa-times {
+  font-size: 11px;
+  color: black;
+  font-weight: lighter;
+  cursor: pointer;
+}
+.auth-fail-message {
+  margin-top: 10px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 11px;
+  font-weight: lighter;
+  color: red;
+}
+
+.login-component {
+  margin-top: 1.5em;
+}

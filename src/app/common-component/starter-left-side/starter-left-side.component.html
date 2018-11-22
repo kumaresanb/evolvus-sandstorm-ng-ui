@@ -1,0 +1,32 @@
+<aside class="main-sidebar">
+  <section class="sidebar">
+    <ul class="sidebar-menu">
+      <li class="active" *ngIf="user.applicationCode=='SANDSTORM'">
+        <a [routerLink]="['/home']">
+          <i class="evo-home4"></i>
+          <span>Home</span>
+        </a>  
+      </li>
+      
+      <hr>
+      <div class="side-menu-group" *ngIf="user.applicationCode=='SANDSTORM'">
+        <div class="menu-group" *ngFor="let menuGroup of user?.role.menuGroup; let i = index" >
+          <li class="header">{{menuGroup.title | titlecase}}</li>
+          <div class="menuItem" *ngFor="let menuItem of menuGroup?.menuItems ; let j = index">
+            <li class="menuItemRoute"> 
+              <a routerLink="{{menuItem.menuItemCode}}">
+                <i [ngClass]="user.role.menuGroup[i].menuItems[j].icon"></i>
+                <span>{{menuItem.title}}</span>
+              </a>
+            </li>
+
+          </div>
+          <hr>
+        </div>  
+      </div>
+    </ul>
+
+
+  </section>
+
+</aside>

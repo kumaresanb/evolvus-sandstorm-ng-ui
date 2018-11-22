@@ -1,0 +1,118 @@
+
+
+<div class="content-wrapper addFormSec">
+
+
+
+    <section class="padL35 content-header ">
+      <h1 class="marTB15 txt-orange">
+        <div class="img_icon">
+          <span>
+            <i class="fa fa-angle-left" mat-raised-button matTooltip="Back" [routerLink]="['/entityManagement']" aria-hidden="true"></i> Add New Entity</span>
+        </div>
+      </h1>
+    </section>
+
+
+    <section class="content">
+      <div class="row">
+        <div class="col-md-4">
+          <h4>Entity Information</h4>
+          <hr>
+        </div>
+      </div>
+
+
+      <form [formGroup]="entityForm">
+
+
+
+
+
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input  required autocomplete="off" formControlName="name" matInput name="name" minlength="6" maxlength="35"
+                  id="name" placeholder="Entity Name" (keyup)="toUpperCase($event)" >
+                  <mat-error id="nameError1" *ngIf="entityForm.controls.name.dirty && entityForm.controls.name.invalid">Invalid Entity Name. Please check info!</mat-error>
+                  <mat-error id="nameError2" *ngIf="entityForm.controls.name.pristine">This is a required field</mat-error>
+                  <label class="btn btn-info"  mat-raised-button matTooltip="6 - 35 characters &#10004; [a-zA-Z0-9] &#10004; Hyphen and Underscore &#10004; Space &#10008;"><i class="fa fa-question-circle" ></i></label>
+              </mat-form-field>
+
+            </div>
+            </div>
+            <div class="col-md-5">
+            <div class="form-group">
+              <mat-form-field class="example-full-width">
+                <input  required autocomplete="off" formControlName="entityCode" matInput name="entityCode" minlength="3" maxlength="20"
+                  id="entityCode" placeholder="Entity Code"  (keyup)="toUpperCase($event)">
+                  <mat-error id="entityCodeError1" *ngIf="entityForm.controls.entityCode.dirty && entityForm.controls.entityCode.invalid">Invalid Entity Code. Please check info!</mat-error>
+                  <mat-error id="entityCodeError2"*ngIf="entityForm.controls.entityCode.pristine">This is a required field</mat-error>
+                  <label class="btn btn-info"  mat-raised-button matTooltip="6 - 35 characters &#10004; [a-zA-Z0-9] &#10004; Hyphen and Underscore &#10004; Space &#10008;"><i class="fa fa-question-circle" ></i></label>
+              </mat-form-field>
+
+
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="form-group">
+
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Parent Entity" formControlName="parent" aria-label="Parent Entity" required name="parent" id="parent"[matAutocomplete]="auto" >
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option  *ngFor="let parent of filteredEntityNames | async" [value]="parent">{{parent}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error id="parentEntityError"*ngIf="entityForm.controls.parent.invalid">This is a required field</mat-error>
+              </mat-form-field>
+
+            </div>
+          </div>
+
+          <!-- <div class="col-md-5">
+              <div class="form-group">
+                <mat-form-field class="example-full-width ">
+                  <mat-select  placeholder="Activation Status" formControlName="enableFlag" required name="enableFlag" id="enableFlag">
+                    <mat-option value="true">Active</mat-option>
+                    <mat-option value="false">Inactive</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="entityForm.controls.enableFlag.invalid">This is a required field</mat-error>
+
+                </mat-form-field>
+
+              </div>
+            </div> -->
+          <div class="col-md-5">
+              <div class="form-group">
+                 <mat-form-field  class="example-full-width">
+                     <textarea required matInput placeholder="Description" autocomplete="off" formControlName="description" name="description" ></textarea>
+                     <mat-error id="entityDescriptionError1" *ngIf="entityForm.controls.description.dirty && entityForm.controls.description.invalid">Invalid Entity Description. Please check info!</mat-error>
+                     <mat-error id="entityDescriptionError2"*ngIf="entityForm.controls.description.pristine">This is a required field</mat-error>
+                     <label class="btn btn-info"  mat-raised-button matTooltip="6 - 140 characters &#10004;"><i class="fa fa-question-circle" ></i></label>
+                   </mat-form-field>
+                 </div>
+            </div>
+
+
+
+
+        </div>
+      </form>
+    </section>
+    <section>
+      <div class="row">
+        <div class="text-center">
+          <div class="">
+            <button class="btn btn-primary btn-submit"  id="submitButton" [disabled]="entityForm.invalid" (click)="save()">Submit</button>
+
+            <button type="button" class="btn btn-primary btn-close" (click)="abortSaveAction()">Cancel</button>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+</div>

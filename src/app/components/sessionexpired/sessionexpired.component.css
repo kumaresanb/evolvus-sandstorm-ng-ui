@@ -1,0 +1,13 @@
+.redirect{
+position: fixed;
+top: 15em;
+left: 30em;
+        margin: auto;
+        /* width: 50%; */
+      color:#ff8500;
+
+}
+mat-progress-spinner{
+    margin-left: 15em; 
+    margin-top: 5em;
+}
