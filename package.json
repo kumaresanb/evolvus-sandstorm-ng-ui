@@ -25,7 +25,7 @@
     "@angular/upgrade": "^6.0.3",
     "@evolvus/evolvus-bulk-upload-view": "^1.0.3",
     "@evolvus/evolvus-workflow-event-view": "0.0.6",
-    "admin-lte": "2.3.11",
+    "admin-lte": "3.1.0",
     "bootstrap": "^3.3.7",
     "core-js": "^2.5.4",
     "doc-cookies": "^1.1.0",
