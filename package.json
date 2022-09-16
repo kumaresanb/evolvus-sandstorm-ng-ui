@@ -26,7 +26,7 @@
     "@evolvus/evolvus-bulk-upload-view": "^1.0.3",
     "@evolvus/evolvus-workflow-event-view": "0.0.6",
     "admin-lte": "2.3.11",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "core-js": "^2.5.4",
     "doc-cookies": "^1.1.0",
     "font-awesome": "^4.7.0",
